@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -15,11 +15,49 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3m1-pS-0G4">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="dHg-Mq-r5Y"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Title" id="PXV-Sn-LPq">
+                                        <barButtonItem key="rightBarButtonItem" style="plain" id="WeG-ND-2Hi">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="x0n-5k-Gjp">
+                                                <rect key="frame" x="-23" y="-15" width="133" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="append"/>
+                                                <connections>
+                                                    <action selector="touchAppendButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="OsO-vk-kL1"/>
+                                                </connections>
+                                            </button>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N4X-fD-w9j">
+                                <rect key="frame" x="0.0" y="44" width="600" height="554"/>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="N4X-fD-w9j" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="1Ij-Ci-NY4"/>
+                            <constraint firstAttribute="trailing" secondItem="N4X-fD-w9j" secondAttribute="trailing" id="5hL-b4-Tct"/>
+                            <constraint firstItem="3m1-pS-0G4" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="NFc-zE-YTY"/>
+                            <constraint firstItem="3m1-pS-0G4" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="RSc-Z3-UVv"/>
+                            <constraint firstItem="N4X-fD-w9j" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="44" id="W84-lZ-fX8"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="N4X-fD-w9j" secondAttribute="bottom" constant="2" id="jtf-vV-vgp"/>
+                            <constraint firstAttribute="trailing" secondItem="3m1-pS-0G4" secondAttribute="trailing" id="mwX-k5-VTc"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="containerScrollView" destination="N4X-fD-w9j" id="vDw-5a-3OJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="764" y="448"/>
         </scene>
     </scenes>
 </document>
