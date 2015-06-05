@@ -121,32 +121,6 @@
     
 }
 
-
-- (IBAction)touchAppendButton:(id)sender
-{
-    UIView *upperView = self.containerScrollView.subviews.firstObject;
-    
-    if (upperView) {
-        UIView *view = [[UIView alloc] init];
-        view.translatesAutoresizingMaskIntoConstraints = NO;
-        [view setBackgroundColor:[UIColor blackColor]];
-        [self.containerScrollView addSubview:view];
-        
-        CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-//        CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-        
-        NSDictionary *viewDic = @{@"me":view, @"upperView":upperView};
-        NSDictionary *metrics = @{@"width":@(screenWidth - 32)};
-        
-        
-        [self.containerScrollView addConstraints:
-         [NSLayoutConstraint constraintsWithVisualFormat:@"V:[upperView]-16-[me(30)]" options:0 metrics:nil views:viewDic]];
-        [self.containerScrollView addConstraints:
-         [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[me(width)]-16-|" options:0 metrics:metrics views:viewDic]];
-
-    }
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -216,14 +190,21 @@
 
 #pragma mark - action
 
-
-
 - (IBAction)toggleCollectionView:(id)sender {
     if (self.collectionView.hidden) {
         [self p_showCollectionView];
     } else {
         [self p_hideCollectionView];
     }
+}
+
+- (IBAction)touchAppendButton:(id)sender
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.pictures.count inSection:0];
+    
+    [self.pictures addObject:@"search.jpg"];
+    [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
+    [self p_showCollectionView];
 }
 
 - (void)glw_sizeThatFitsByFixedWidth:(CGFloat)fixedWidth withTextView:(UITextView *)textView
