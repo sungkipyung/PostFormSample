@@ -7,8 +7,9 @@
 //
 
 #import "ViewController.h"
+#import "PictureCollectionViewCell.h"
 
-@interface ViewController () <UITextViewDelegate>
+@interface ViewController () <UITextViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PictureCollectionViewCellDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *containerScrollView;
 
 @property (weak, nonatomic) UITextView *textView;
@@ -19,6 +20,9 @@
 @property (weak, nonatomic) NSLayoutConstraint *constraintCollectionViewHeight;
 
 @property (weak, nonatomic) UIScrollView *labelView;
+
+
+@property (strong, nonatomic) NSMutableArray *pictures;
 @end
 
 @implementation ViewController
@@ -26,11 +30,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
-    
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    [self.containerScrollView setBackgroundColor:[UIColor redColor]];
+    [self.containerScrollView setBackgroundColor:[UIColor clearColor]];
     self.containerScrollView.contentSize = CGSizeMake(screenWidth, screenHeight*2);
     
     // textView
@@ -45,8 +47,13 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.itemSize = CGSizeMake(100, 100);
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-    collectionView.backgroundColor = [UIColor blackColor];
+    collectionView.backgroundColor = [UIColor clearColor];
     collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    collectionView.delegate = self;
+    collectionView.dataSource = self;
+    UINib *nib = [UINib nibWithNibName:@"PictureCollectionViewCell" bundle:nil];
+    [collectionView registerNib:nib forCellWithReuseIdentifier:@"Cell"];
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
     // labelView
     UIScrollView *labelView = [[UIScrollView alloc] init];
@@ -94,6 +101,11 @@
      [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[labelView(width)]-margin-|" options:0 metrics:metrics views:viewDic]];
     
     [self p_hideCollectionView];
+    
+    _pictures = [NSMutableArray array];
+    for (int i = 0; i < 10; i++) {
+        [_pictures addObject:@"search.jpg"];
+    }
 }
 
 - (void)p_hideCollectionView
@@ -106,6 +118,7 @@
 {
     self.constraintCollectionViewHeight.constant = 100;
     self.collectionView.hidden = NO;
+    
 }
 
 
@@ -186,6 +199,25 @@
     rect.size.height += textView.textContainerInset.bottom;
     [textView scrollRectToVisible:rect animated:animated];
 }
+
+#pragma mark - <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.pictures.count;
+}
+// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    PictureCollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    cell.imageView.image = [UIImage imageNamed:self.pictures[indexPath.row]];
+    cell.delegate = self;
+    return cell;
+}
+
+#pragma mark - action
+
+
+
 - (IBAction)toggleCollectionView:(id)sender {
     if (self.collectionView.hidden) {
         [self p_showCollectionView];
@@ -207,6 +239,18 @@
         textView.frame = newFrame;
 //    }
     
+}
+
+- (void)pictureCollectionViewCellDiddDleteButtonPressed:(PictureCollectionViewCell *)cell
+{
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    if (indexPath.row != NSNotFound) {
+        [self.pictures removeObjectAtIndex:indexPath.row];
+        [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+        if (self.pictures.count == 0) {
+            [self p_hideCollectionView];
+        }
+    }
 }
 
 @end
