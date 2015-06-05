@@ -60,6 +60,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		89C337441B21841F00104238 /* Tutorial1 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Tutorial1;
+			sourceTree = "<group>";
+		};
 		89DC41FD1B1C6457008249FF = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +88,7 @@
 		89DC42081B1C6457008249FF /* PostFormSample */ = {
 			isa = PBXGroup;
 			children = (
+				89C337441B21841F00104238 /* Tutorial1 */,
 				89DC420D1B1C6457008249FF /* AppDelegate.h */,
 				89DC420E1B1C6457008249FF /* AppDelegate.m */,
 				89DC42101B1C6457008249FF /* ViewController.h */,
@@ -416,6 +424,7 @@
 				89DC422B1B1C6457008249FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		89DC422C1B1C6457008249FF /* Build configuration list for PBXNativeTarget "PostFormSampleTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +433,7 @@
 				89DC422E1B1C6457008249FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
